@@ -1,65 +1,116 @@
-import Image from "next/image";
+import Container from '@/components/Container';
+import Hero from '@/components/Hero';
+import ProductCard3D from '@/components/ProductCard3D';
+import { products } from '@/data/products';
+import { FadeIn, StaggerContainer, StaggerItem } from '@/components/Motion';
+import { Zap, Palette, Rocket, Shield } from 'lucide-react';
+import Button from '@/components/Button';
 
-export default function Home() {
+export default function HomePage() {
+  const featuredProducts = products.slice(0, 4);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <>
+      <Hero />
+
+      {/* Featured Products Bento Grid */}
+      <section className="py-28">
+        <Container>
+          <FadeIn className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-5">
+              Premium Templates
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-xl mx-auto">
+              Start with a polished foundation. Each template is ready to clone and customize.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+      {featuredProducts.map((product, idx) => (
+        <ProductCard3D key={product.slug} product={product} index={idx} />
+      ))}
     </div>
+        </Container>
+      </section>
+
+      {/* Value proposition with stronger icons */}
+      <section id="about" className="py-28 border-t border-white/5">
+        <Container>
+          <FadeIn className="text-center mb-20">
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-5">
+              Designed for developers
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-xl mx-auto">
+              Every template is crafted with performance, maintainability, and beauty in mind.
+            </p>
+          </FadeIn>
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Zap, title: 'Blazing Fast', desc: 'Optimized Core Web Vitals out of the box.' },
+              { icon: Palette, title: 'Pixel Perfect', desc: 'Stunning designs that convert visitors.' },
+              { icon: Rocket, title: 'Production Ready', desc: 'TypeScript, Next.js, and Tailwind best practices.' },
+              { icon: Shield, title: 'Reliable Support', desc: 'Free updates and community support.' },
+            ].map((item) => (
+              <StaggerItem key={item.title}>
+                <div className="p-8 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-card-hover transition-all duration-300 h-full group">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center mb-6 group-hover:shadow-glow transition-shadow duration-500">
+                    <item.icon size={24} className="text-purple-400" />
+                  </div>
+                  <h3 className="text-xl font-display font-semibold mb-3">{item.title}</h3>
+                  <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
+                </div>
+              </StaggerItem>
+            ))}
+          </StaggerContainer>
+        </Container>
+      </section>
+
+      {/* Testimonial / Social Proof */}
+      <section className="py-28 bg-dark-surface/30">
+        <Container>
+          <FadeIn className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-5">
+              Trusted by developers
+            </h2>
+            <p className="text-zinc-400 text-lg max-w-xl mx-auto">
+              Join hundreds of satisfied customers building with our templates.
+            </p>
+          </FadeIn>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { quote: "Saved me weeks of work. The code quality is exceptional.", author: "Alex Rivera, Frontend Lead" },
+              { quote: "Finally, templates that look as good as they perform.", author: "Jamie Chen, Indie Maker" },
+              { quote: "My clients love the speed and design. It's a no-brainer.", author: "Morgan Lee, Freelancer" },
+            ].map((t, i) => (
+              <FadeIn key={i} delay={i * 0.1}>
+                <div className="p-8 rounded-2xl border border-white/5 bg-white/[0.02] relative">
+                  <div className="text-5xl font-display font-bold gradient-text mb-4">“</div>
+                  <p className="text-zinc-300 text-base mb-6">{t.quote}</p>
+                  <p className="text-zinc-500 text-sm font-medium">{t.author}</p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* CTA with code background effect */}
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-hero-gradient opacity-10 blur-3xl" />
+        <div className="absolute inset-0 bg-[url('/code-bg.svg')] opacity-5" />
+        <Container className="relative z-10 text-center">
+          <FadeIn>
+            <h2 className="text-4xl md:text-5xl font-display font-bold mb-6">
+              Ready to ship faster?
+            </h2>
+            <p className="text-zinc-400 text-xl mb-10">
+              Grab a template and launch your next project today.
+            </p>
+            <Button href="/products" variant="primary" className="text-lg px-12 py-5">
+              View All Templates
+            </Button>
+          </FadeIn>
+        </Container>
+      </section>
+    </>
   );
 }

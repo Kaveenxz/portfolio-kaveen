@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-dark: #0a0a0a;
+  --color-dark-surface: #111111;
+  --color-accent-purple: #8b5cf6;
+  --color-accent-blue: #3b82f6;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --shadow-glow: 0 0 25px -6px rgba(139, 92, 246, 0.5);
+  --shadow-glow-blue: 0 0 30px -8px rgba(59, 130, 246, 0.4);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@utility bg-hero-gradient {
+  background: linear-gradient(135deg, #8b5cf6 0%, #3b82f6 100%);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@utility bg-card-hover {
+  background: linear-gradient(145deg, rgba(139, 92, 246, 0.08), rgba(59, 130, 246, 0.08));
+}
+
+@utility gradient-text {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(135deg, #a78bfa 0%, #60a5fa 100%);
+}
+
+@utility text-glow {
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+@utility card-premium {
+  @apply rounded-2xl border border-white/5 bg-white/[0.02] backdrop-blur-sm;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes blob {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+.animate-blob {
+  animation: blob 25s infinite;
+}
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+@layer base {
+  body {
+    @apply bg-dark text-zinc-200 font-sans antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight;
   }
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.perspective-1000 {
+  perspective: 1000px;
 }
